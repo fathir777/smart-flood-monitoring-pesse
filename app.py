@@ -95,7 +95,7 @@ def home():
 
     except Exception as e:
 
-        print("ERROR :", e)
+        print(e)
 
         labels = []
         distances = []
