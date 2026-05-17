@@ -18,12 +18,12 @@ def home():
 
         latest_data = df.tail(10)
 
-        # ubah waktu UTC ke WIB
+        # ubah waktu UTC ke WITA
         latest_data['created_at'] = pd.to_datetime(latest_data['created_at'])
 
         latest_data['created_at'] = (
             latest_data['created_at']
-            .dt.tz_convert('Asia/Jakarta')
+            .dt.tz_convert('Asia/Makassar')
             .dt.strftime('%d-%m-%Y %H:%M:%S')
         )
 
