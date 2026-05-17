@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Smart Flood Monitoring Dusun Pesse</title>
+
+    <meta http-equiv="refresh" content="20">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+
+        body {
+
+            font-family: Arial;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+
+            width: 90%;
+            margin: auto;
+            margin-top: 30px;
+        }
+
+        .title {
+
+            text-align: center;
+            font-size: 35px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .status-box {
+
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            color: white;
+            font-size: 35px;
+            font-weight: bold;
+            background: {{ color }};
+        }
+
+        .card {
+
+            background: white;
+            padding: 30px;
+            margin-top: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 0px 10px gray;
+        }
+
+        .distance {
+
+            font-size: 45px;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        h2 {
+
+            text-align: center;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="title">
+        Smart Flood Monitoring Dusun Pesse
+    </div>
+
+    <div class="status-box">
+        STATUS : {{ status }}
+    </div>
+
+    <div class="card">
+
+        <h2>Jarak Air Saat Ini</h2>
+
+        <div class="distance">
+            {{ distance }} cm
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <h2>Grafik Monitoring Air</h2>
+
+        <canvas id="myChart"></canvas>
+
+    </div>
+
+</div>
+
+<script>
+
+const ctx = document.getElementById('myChart');
+
+new Chart(ctx, {
+
+    type: 'line',
+
+    data: {
+
+        labels: {{ labels | tojson }},
+
+        datasets: [
+
+            {
+
+                label: 'Ketinggian Air (cm)',
+
+                data: {{ distances | tojson }},
+
+                borderWidth: 3,
+                tension: 0.3
+
+            },
+
+            {
+
+                label: 'Batas Siaga',
+
+                data: [35,35,35,35,35,35,35,35,35,35],
+
+                borderDash: [5,5],
+                borderWidth: 2
+
+            },
+
+            {
+
+                label: 'Batas Banjir',
+
+                data: [15,15,15,15,15,15,15,15,15,15],
+
+                borderDash: [5,5],
+                borderWidth: 2
+
+            }
+
+        ]
+    },
+
+    options: {
+
+        responsive: true,
+
+        scales: {
+
+            y: {
+
+                beginAtZero: true
+
+            }
+
+        }
+
+    }
+
+});
+
+</script>
+
+</body>
+
+</html>
